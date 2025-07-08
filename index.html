@@ -1,7 +1,312 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Lumina Pouch - Fine Illuminated Leather Goods</title>
+    <!-- Google Fonts - Inter for a modern, clean look -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Basic Reset & Box Sizing */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Body Styles - Font, Background, Text Color */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f9fafb; /* Light Gray Background */
+            color: #1f2937; /* Dark Gray Text */
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Container for Centering Content */
+        .container {
+            max-width: 960px; /* Max width for content */
+            margin: 0 auto; /* Center the container */
+            padding: 0 1.5rem; /* Horizontal padding for mobile */
+            width: 100%; /* Ensure it takes full width on small screens */
+        }
+
+        /* Header Styles */
+        header {
+            background-color: #ffffff; /* White Header Background */
+            padding: 1.5rem 0;
+            border-bottom: 1px solid #e5e7eb; /* Light Border */
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05); /* Subtle Shadow */
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.75rem; /* Larger Logo Text */
+            font-weight: 700; /* Bold */
+            color: #4f46e5; /* Indigo Accent Color */
+            text-decoration: none;
+            letter-spacing: -0.025em; /* Tighten Letter Spacing */
+        }
+
+        /* Navigation (if any, currently just a placeholder) */
+        nav a {
+            color: #4b5563; /* Gray Text */
+            text-decoration: none;
+            margin-left: 1.5rem;
+            font-weight: 500;
+            transition: color 0.2s ease-in-out;
+        }
+
+        nav a:hover {
+            color: #4f46e5; /* Indigo on Hover */
+        }
+
+        /* Main Content Sections */
+        main {
+            flex-grow: 1; /* Allow main content to grow and push footer down */
+            padding: 3rem 0; /* Vertical padding for sections */
+        }
+
+        section {
+            background-color: #ffffff;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            border-radius: 0.75rem; /* Rounded Corners */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05); /* Soft Shadow */
+            border: 1px solid #e5e7eb; /* Light Border */
+        }
+
+        section:last-child {
+            margin-bottom: 0; /* No bottom margin on the last section */
+        }
+
+        h1 {
+            font-size: 3rem; /* Large Heading */
+            font-weight: 700;
+            color: #1f2937;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        h2 {
+            font-size: 2.25rem; /* Medium Heading */
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 1.25rem;
+            text-align: center;
+        }
+
+        h3 {
+            font-size: 1.75rem; /* Smaller Heading for Features */
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 0.75rem;
+        }
+
+        p {
+            font-size: 1.125rem; /* Paragraph Text Size */
+            color: #4b5563;
+            margin-bottom: 1rem;
+        }
+
+        ul {
+            list-style: none; /* Remove default list bullets */
+            padding-left: 0;
+            margin-bottom: 1rem;
+        }
+
+        ul li {
+            font-size: 1.125rem;
+            color: #4b5563;
+            margin-bottom: 0.5rem;
+            position: relative;
+            padding-left: 1.5rem; /* Space for custom bullet */
+        }
+
+        ul li::before {
+            content: '•'; /* Custom bullet point */
+            color: #4f46e5; /* Indigo bullet */
+            position: absolute;
+            left: 0;
+            font-weight: 700;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: #4f46e5; /* Indigo Button */
+            color: #ffffff;
+            padding: 1rem 2rem;
+            border-radius: 0.5rem; /* Rounded Button */
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.125rem;
+            transition: background-color 0.2s ease-in-out, transform 0.1s ease-in-out;
+            border: none;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .cta-button:hover {
+            background-color: #4338ca; /* Darker Indigo on Hover */
+            transform: translateY(-2px); /* Slight lift effect */
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .image-placeholder {
+            width: 100%;
+            max-width: 600px; /* Max width for image */
+            height: 300px; /* Fixed height for placeholder */
+            background-color: #e0e7ff; /* Light blue background for placeholder */
+            border: 1px dashed #93c5fd; /* Dashed border */
+            border-radius: 0.75rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #6366f1; /* Blue text */
+            font-weight: 600;
+            font-size: 1.25rem;
+            margin: 2rem auto; /* Center image placeholder */
+        }
+
+        /* Footer Styles */
+        footer {
+            background-color: #1f2937; /* Dark Gray Footer Background */
+            color: #d1d5db; /* Light Gray Text */
+            padding: 2rem 0;
+            text-align: center;
+            font-size: 0.9rem;
+            margin-top: auto; /* Push footer to the bottom */
+        }
+
+        footer a {
+            color: #93c5fd; /* Light Blue for Links */
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            h2 {
+                font-size: 1.75rem;
+            }
+            h3 {
+                font-size: 1.5rem;
+            }
+            p, ul li {
+                font-size: 1rem;
+            }
+            .container {
+                padding: 0 1rem;
+            }
+            section {
+                padding: 1.5rem;
+            }
+            .image-placeholder {
+                height: 200px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2rem;
+            }
+            h2 {
+                font-size: 1.5rem;
+            }
+            .logo {
+                font-size: 1.5rem;
+            }
+            nav {
+                display: none; /* Hide nav on very small screens if not crucial */
+            }
+            .header-content {
+                justify-content: center; /* Center logo if nav is hidden */
+            }
+            .image-placeholder {
+                height: 150px;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
 <body>
-<h1>Hello World</h1>
-<p>I'm hosted with GitHub Pages.</p>
+    <header>
+        <div class="container header-content">
+            <a href="#" class="logo">Lumina Leather</a>
+            <nav>
+                <!-- Navigation links can be added here if needed, e.g., <a href="#">About</a> -->
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="container text-center">
+            <h1>Experience Elevated Craftsmanship: The Lumina Pouch</h1>
+            <p>Discover a new standard in personal carry. The Lumina Pouch combines exquisite full-grain leather with intelligent design, offering unparalleled organization and subtle illumination for your most cherished essentials.</p>
+            <div class="image-placeholder">
+                [Placeholder for your stunning product image]
+                <img src="https://placehold.co/600x300/e0e7ff/6366f1?text=Your+Lumina+Pouch+Here" alt="Elegant leather pouch with integrated light" onerror="this.onerror=null;this.src='https://placehold.co/600x300/e0e7ff/6366f1?text=Image+Not+Found';">
+            </div>
+        </section>
+
+        <section class="container">
+            <h2>Designed for Your Discerning Lifestyle</h2>
+            <p>Every detail of The Lumina Pouch is meticulously considered to enhance your daily rituals. From its tactile feel to its innovative features, it's crafted to be an extension of your personal style and needs.</p>
+
+            <h3>Customizable Interior</h3>
+            <p>Adapt the pouch to your unique collection of personal items. Our innovative interior design features a flexible system that allows you to configure compartments precisely, ensuring everything has its place and stays secure.</p>
+            <ul>
+                <li>Modular dividers for tailored organization.</li>
+                <li>Soft, protective lining to safeguard contents.</li>
+                <li>Optimized space for various personal essentials.</li>
+            </ul>
+
+            <h3>Adjustable Securing Straps</h3>
+            <p>No more loose items. The Lumina Pouch incorporates discreet, adjustable straps designed to securely hold a range of accessories. Whether it's writing instruments, specialized tools, or other personal items, they remain perfectly in place.</p>
+            <ul>
+                <li>Elasticated straps for versatile item retention.</li>
+                <li>Securely holds items of varying sizes and shapes.</li>
+                <li>Ensures quick and easy access when needed.</li>
+            </ul>
+
+            <h3>Subtle Integrated Illumination</h3>
+            <p>Navigate your pouch with ease, even in low-light conditions. A discreetly embedded LED strip provides a gentle, ambient glow, illuminating the interior and ensuring you can always find what you need without fumbling.</p>
+            <ul>
+                <li>Warm, soft LED light for clear visibility.</li>
+                <li>Long-lasting, rechargeable power source.</li>
+                <li>Seamlessly integrated to maintain the pouch's elegant aesthetic.</li>
+            </ul>
+        </section>
+
+        <section class="container text-center">
+            <h2>Uncompromising Quality & Craftsmanship</h2>
+            <p>The Lumina Pouch is handcrafted from the finest full-grain leather, selected for its durability, luxurious feel, and ability to develop a rich patina over time. Every stitch reflects our commitment to superior quality.</p>
+            <p>We believe in creating pieces that are not just functional, but enduring works of art.</p>
+            <a href="#" class="cta-button">Pre-Order Yours Today</a>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Lumina Leather. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+        </div>
+    </footer>
 </body>
 </html>
