@@ -3,310 +3,353 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Lumina Pouch - Fine Illuminated Leather Goods</title>
-    <!-- Google Fonts - Inter for a modern, clean look -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>Fractal Art Gallery</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script>
     <style>
-        /* Basic Reset & Box Sizing */
-        *, *::before, *::after {
-            box-sizing: border-box;
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
         }
 
-        /* Body Styles - Font, Background, Text Color */
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f9fafb; /* Light Gray Background */
-            color: #1f2937; /* Dark Gray Text */
-            line-height: 1.6;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            color: white;
+            overflow: hidden;
+            height: 100vh;
+        }
+
+        .gallery-container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
             display: flex;
             flex-direction: column;
-            min-height: 100vh;
-        }
-
-        /* Container for Centering Content */
-        .container {
-            max-width: 960px; /* Max width for content */
-            margin: 0 auto; /* Center the container */
-            padding: 0 1.5rem; /* Horizontal padding for mobile */
-            width: 100%; /* Ensure it takes full width on small screens */
-        }
-
-        /* Header Styles */
-        header {
-            background-color: #ffffff; /* White Header Background */
-            padding: 1.5rem 0;
-            border-bottom: 1px solid #e5e7eb; /* Light Border */
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05); /* Subtle Shadow */
-        }
-
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 1.75rem; /* Larger Logo Text */
-            font-weight: 700; /* Bold */
-            color: #4f46e5; /* Indigo Accent Color */
-            text-decoration: none;
-            letter-spacing: -0.025em; /* Tighten Letter Spacing */
-        }
-
-        /* Navigation (if any, currently just a placeholder) */
-        nav a {
-            color: #4b5563; /* Gray Text */
-            text-decoration: none;
-            margin-left: 1.5rem;
-            font-weight: 500;
-            transition: color 0.2s ease-in-out;
-        }
-
-        nav a:hover {
-            color: #4f46e5; /* Indigo on Hover */
-        }
-
-        /* Main Content Sections */
-        main {
-            flex-grow: 1; /* Allow main content to grow and push footer down */
-            padding: 3rem 0; /* Vertical padding for sections */
-        }
-
-        section {
-            background-color: #ffffff;
-            padding: 2.5rem;
-            margin-bottom: 2rem;
-            border-radius: 0.75rem; /* Rounded Corners */
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05); /* Soft Shadow */
-            border: 1px solid #e5e7eb; /* Light Border */
-        }
-
-        section:last-child {
-            margin-bottom: 0; /* No bottom margin on the last section */
-        }
-
-        h1 {
-            font-size: 3rem; /* Large Heading */
-            font-weight: 700;
-            color: #1f2937;
-            text-align: center;
-            margin-bottom: 1.5rem;
-            line-height: 1.2;
-        }
-
-        h2 {
-            font-size: 2.25rem; /* Medium Heading */
-            font-weight: 600;
-            color: #1f2937;
-            margin-bottom: 1.25rem;
-            text-align: center;
-        }
-
-        h3 {
-            font-size: 1.75rem; /* Smaller Heading for Features */
-            font-weight: 600;
-            color: #1f2937;
-            margin-bottom: 0.75rem;
-        }
-
-        p {
-            font-size: 1.125rem; /* Paragraph Text Size */
-            color: #4b5563;
-            margin-bottom: 1rem;
-        }
-
-        ul {
-            list-style: none; /* Remove default list bullets */
-            padding-left: 0;
-            margin-bottom: 1rem;
-        }
-
-        ul li {
-            font-size: 1.125rem;
-            color: #4b5563;
-            margin-bottom: 0.5rem;
-            position: relative;
-            padding-left: 1.5rem; /* Space for custom bullet */
-        }
-
-        ul li::before {
-            content: '•'; /* Custom bullet point */
-            color: #4f46e5; /* Indigo bullet */
-            position: absolute;
-            left: 0;
-            font-weight: 700;
-        }
-
-        .cta-button {
-            display: inline-block;
-            background-color: #4f46e5; /* Indigo Button */
-            color: #ffffff;
-            padding: 1rem 2rem;
-            border-radius: 0.5rem; /* Rounded Button */
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1.125rem;
-            transition: background-color 0.2s ease-in-out, transform 0.1s ease-in-out;
-            border: none;
-            cursor: pointer;
-            text-align: center;
-        }
-
-        .cta-button:hover {
-            background-color: #4338ca; /* Darker Indigo on Hover */
-            transform: translateY(-2px); /* Slight lift effect */
-        }
-
-        .text-center {
-            text-align: center;
-        }
-
-        .image-placeholder {
-            width: 100%;
-            max-width: 600px; /* Max width for image */
-            height: 300px; /* Fixed height for placeholder */
-            background-color: #e0e7ff; /* Light blue background for placeholder */
-            border: 1px dashed #93c5fd; /* Dashed border */
-            border-radius: 0.75rem;
-            display: flex;
             justify-content: center;
             align-items: center;
-            color: #6366f1; /* Blue text */
+        }
+
+        .image-container {
+            position: relative;
+            width: 90%;
+            max-width: 800px;
+            height: 70vh;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            transition: opacity 0.3s ease;
+        }
+
+        .info-panel {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+            padding: 30px;
+            transform: translateY(0);
+            transition: transform 0.3s ease;
+        }
+
+        .fractal-type {
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #00d4ff;
+            margin-bottom: 8px;
             font-weight: 600;
-            font-size: 1.25rem;
-            margin: 2rem auto; /* Center image placeholder */
         }
 
-        /* Footer Styles */
-        footer {
-            background-color: #1f2937; /* Dark Gray Footer Background */
-            color: #d1d5db; /* Light Gray Text */
-            padding: 2rem 0;
-            text-align: center;
-            font-size: 0.9rem;
-            margin-top: auto; /* Push footer to the bottom */
+        .design-name {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
         }
 
-        footer a {
-            color: #93c5fd; /* Light Blue for Links */
+        .buy-button {
+            display: inline-block;
+            padding: 12px 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
             text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
         }
 
-        footer a:hover {
-            text-decoration: underline;
+        .buy-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
         }
 
-        /* Responsive Adjustments */
+        .swipe-indicator {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 10px 20px;
+            border-radius: 50px;
+            backdrop-filter: blur(10px);
+        }
+
+        .indicator-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 12px;
+            opacity: 0.7;
+        }
+
+        .indicator-icon {
+            font-size: 20px;
+            margin-bottom: 4px;
+        }
+
+        .navigation-dots {
+            position: absolute;
+            top: 50%;
+            right: 30px;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .nav-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .nav-dot.active {
+            background: #00d4ff;
+            transform: scale(1.3);
+        }
+
+        .horizontal-dots {
+            position: absolute;
+            bottom: 120px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+        }
+
+        .loading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
         @media (max-width: 768px) {
-            h1 {
-                font-size: 2.5rem;
+            .image-container {
+                width: 95%;
+                height: 60vh;
             }
-            h2 {
-                font-size: 1.75rem;
-            }
-            h3 {
-                font-size: 1.5rem;
-            }
-            p, ul li {
-                font-size: 1rem;
-            }
-            .container {
-                padding: 0 1rem;
-            }
-            section {
-                padding: 1.5rem;
-            }
-            .image-placeholder {
-                height: 200px;
-            }
-        }
 
-        @media (max-width: 480px) {
-            h1 {
-                font-size: 2rem;
+            .design-name {
+                font-size: 22px;
             }
-            h2 {
-                font-size: 1.5rem;
-            }
-            .logo {
-                font-size: 1.5rem;
-            }
-            nav {
-                display: none; /* Hide nav on very small screens if not crucial */
-            }
-            .header-content {
-                justify-content: center; /* Center logo if nav is hidden */
-            }
-            .image-placeholder {
-                height: 150px;
-                font-size: 1rem;
+
+            .info-panel {
+                padding: 20px;
             }
         }
     </style>
 </head>
 <body>
-    <header>
-        <div class="container header-content">
-            <a href="#" class="logo">Lumina Leather</a>
-            <nav>
-                <!-- Navigation links can be added here if needed, e.g., <a href="#">About</a> -->
-            </nav>
-        </div>
-    </header>
-
-    <main>
-        <section class="container text-center">
-            <h1>Experience Elevated Craftsmanship: The Lumina Pouch</h1>
-            <p>Discover a new standard in personal carry. The Lumina Pouch combines exquisite full-grain leather with intelligent design, offering unparalleled organization and subtle illumination for your most cherished essentials.</p>
-            <div class="image-placeholder">
-                [Placeholder for your stunning product image]
-                <img src="https://placehold.co/600x300/e0e7ff/6366f1?text=Your+Lumina+Pouch+Here" alt="Elegant leather pouch with integrated light" onerror="this.onerror=null;this.src='https://placehold.co/600x300/e0e7ff/6366f1?text=Image+Not+Found';">
+    <div class="gallery-container">
+        <div class="swipe-indicator">
+            <div class="indicator-item">
+                <div class="indicator-icon">↕️</div>
+                <div>Sets</div>
             </div>
-        </section>
-
-        <section class="container">
-            <h2>Designed for Your Discerning Lifestyle</h2>
-            <p>Every detail of The Lumina Pouch is meticulously considered to enhance your daily rituals. From its tactile feel to its innovative features, it's crafted to be an extension of your personal style and needs.</p>
-
-            <h3>Customizable Interior</h3>
-            <p>Adapt the pouch to your unique collection of personal items. Our innovative interior design features a flexible system that allows you to configure compartments precisely, ensuring everything has its place and stays secure.</p>
-            <ul>
-                <li>Modular dividers for tailored organization.</li>
-                <li>Soft, protective lining to safeguard contents.</li>
-                <li>Optimized space for various personal essentials.</li>
-            </ul>
-
-            <h3>Adjustable Securing Straps</h3>
-            <p>No more loose items. The Lumina Pouch incorporates discreet, adjustable straps designed to securely hold a range of accessories. Whether it's writing instruments, specialized tools, or other personal items, they remain perfectly in place.</p>
-            <ul>
-                <li>Elasticated straps for versatile item retention.</li>
-                <li>Securely holds items of varying sizes and shapes.</li>
-                <li>Ensures quick and easy access when needed.</li>
-            </ul>
-
-            <h3>Subtle Integrated Illumination</h3>
-            <p>Navigate your pouch with ease, even in low-light conditions. A discreetly embedded LED strip provides a gentle, ambient glow, illuminating the interior and ensuring you can always find what you need without fumbling.</p>
-            <ul>
-                <li>Warm, soft LED light for clear visibility.</li>
-                <li>Long-lasting, rechargeable power source.</li>
-                <li>Seamlessly integrated to maintain the pouch's elegant aesthetic.</li>
-            </ul>
-        </section>
-
-        <section class="container text-center">
-            <h2>Uncompromising Quality & Craftsmanship</h2>
-            <p>The Lumina Pouch is handcrafted from the finest full-grain leather, selected for its durability, luxurious feel, and ability to develop a rich patina over time. Every stitch reflects our commitment to superior quality.</p>
-            <p>We believe in creating pieces that are not just functional, but enduring works of art.</p>
-            <a href="#" class="cta-button">Pre-Order Yours Today</a>
-        </section>
-    </main>
-
-    <footer>
-        <div class="container">
-            <p>&copy; 2025 Lumina Leather. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+            <div class="indicator-item">
+                <div class="indicator-icon">↔️</div>
+                <div>Designs</div>
+            </div>
         </div>
-    </footer>
+
+        <div class="image-container" id="imageContainer">
+            <img id="productImage" class="product-image" src="" alt="Fractal Design">
+            <div class="loading" id="loading">Loading...</div>
+            
+            <div class="info-panel">
+                <div class="fractal-type" id="fractalType">MANDELBROT SET</div>
+                <div class="design-name" id="designName">Design 01</div>
+                <a href="#" class="buy-button" id="buyButton">Buy Now</a>
+            </div>
+        </div>
+
+        <div class="navigation-dots" id="verticalDots"></div>
+        <div class="horizontal-dots" id="horizontalDots"></div>
+    </div>
+
+    <script>
+        // 2D MATRIX DATA STRUCTURE
+        // Row = Fractal Set Type | Column = Design Variation
+        const productMatrix = [
+            // Row 0: Mandelbrot Set
+            [
+                { name: "Mandelbrot Design 01", image: "mandelbrot/design-01.jpg", url: "https://your-store.com/mandelbrot-01" },
+                { name: "Mandelbrot Design 02", image: "mandelbrot/design-02.jpg", url: "https://your-store.com/mandelbrot-02" },
+                { name: "Mandelbrot Design 03", image: "mandelbrot/design-03.jpg", url: "https://your-store.com/mandelbrot-03" }
+            ],
+            // Row 1: Julia Set
+            [
+                { name: "Julia Design 01", image: "julia/design-01.jpg", url: "https://your-store.com/julia-01" },
+                { name: "Julia Design 02", image: "julia/design-02.jpg", url: "https://your-store.com/julia-02" },
+                { name: "Julia Design 03", image: "julia/design-03.jpg", url: "https://your-store.com/julia-03" }
+            ],
+            // Row 2: Tricorn Set
+            [
+                { name: "Tricorn Design 01", image: "tricorn/design-01.jpg", url: "https://your-store.com/tricorn-01" },
+                { name: "Tricorn Design 02", image: "tricorn/design-02.jpg", url: "https://your-store.com/tricorn-02" },
+                { name: "Tricorn Design 03", image: "tricorn/design-03.jpg", url: "https://your-store.com/tricorn-03" }
+            ],
+            // Row 3: Burning Ship Set
+            [
+                { name: "Burning Ship Design 01", image: "burningship/design-01.jpg", url: "https://your-store.com/burningship-01" },
+                { name: "Burning Ship Design 02", image: "burningship/design-02.jpg", url: "https://your-store.com/burningship-02" },
+                { name: "Burning Ship Design 03", image: "burningship/design-03.jpg", url: "https://your-store.com/burningship-03" }
+            ]
+        ];
+
+        const fractalTypes = ["MANDELBROT SET", "JULIA SET", "TRICORN SET", "BURNING SHIP"];
+
+        // Current position in matrix
+        let currentRow = 0;
+        let currentCol = 0;
+
+        // DOM Elements
+        const imageContainer = document.getElementById('imageContainer');
+        const productImage = document.getElementById('productImage');
+        const fractalType = document.getElementById('fractalType');
+        const designName = document.getElementById('designName');
+        const buyButton = document.getElementById('buyButton');
+        const loading = document.getElementById('loading');
+        const verticalDots = document.getElementById('verticalDots');
+        const horizontalDots = document.getElementById('horizontalDots');
+
+        // Initialize navigation dots
+        function initDots() {
+            // Vertical dots (fractal sets)
+            verticalDots.innerHTML = '';
+            for (let i = 0; i < productMatrix.length; i++) {
+                const dot = document.createElement('div');
+                dot.className = 'nav-dot' + (i === currentRow ? ' active' : '');
+                verticalDots.appendChild(dot);
+            }
+
+            // Horizontal dots (designs)
+            horizontalDots.innerHTML = '';
+            for (let i = 0; i < productMatrix[currentRow].length; i++) {
+                const dot = document.createElement('div');
+                dot.className = 'nav-dot' + (i === currentCol ? ' active' : '');
+                horizontalDots.appendChild(dot);
+            }
+        }
+
+        // Update navigation dots
+        function updateDots() {
+            const vDots = verticalDots.children;
+            for (let i = 0; i < vDots.length; i++) {
+                vDots[i].className = 'nav-dot' + (i === currentRow ? ' active' : '');
+            }
+
+            const hDots = horizontalDots.children;
+            for (let i = 0; i < hDots.length; i++) {
+                hDots[i].className = 'nav-dot' + (i === currentCol ? ' active' : '');
+            }
+        }
+
+        // Update display with current product
+        function updateDisplay() {
+            const product = productMatrix[currentRow][currentCol];
+            
+            loading.style.display = 'block';
+            productImage.style.opacity = '0';
+
+            productImage.onload = function() {
+                loading.style.display = 'none';
+                productImage.style.opacity = '1';
+            };
+
+            productImage.src = product.image;
+            fractalType.textContent = fractalTypes[currentRow];
+            designName.textContent = product.name;
+            buyButton.href = product.url;
+
+            updateDots();
+        }
+
+        // Swipe handlers
+        function handleVerticalSwipe(direction) {
+            if (direction === 'up' && currentRow < productMatrix.length - 1) {
+                currentRow++;
+                currentCol = 0; // Reset to first design
+                initDots(); // Reinitialize horizontal dots
+                updateDisplay();
+            } else if (direction === 'down' && currentRow > 0) {
+                currentRow--;
+                currentCol = 0; // Reset to first design
+                initDots(); // Reinitialize horizontal dots
+                updateDisplay();
+            }
+        }
+
+        function handleHorizontalSwipe(direction) {
+            const maxCol = productMatrix[currentRow].length - 1;
+            if (direction === 'left' && currentCol < maxCol) {
+                currentCol++;
+                updateDisplay();
+            } else if (direction === 'right' && currentCol > 0) {
+                currentCol--;
+                updateDisplay();
+            }
+        }
+
+        // Initialize Hammer.js
+        const hammer = new Hammer(imageContainer);
+        hammer.get('swipe').set({ direction: Hammer.DIRECTION_ALL });
+
+        hammer.on('swipeup', () => handleVerticalSwipe('up'));
+        hammer.on('swipedown', () => handleVerticalSwipe('down'));
+        hammer.on('swipeleft', () => handleHorizontalSwipe('left'));
+        hammer.on('swiperight', () => handleHorizontalSwipe('right'));
+
+        // Keyboard navigation (bonus feature)
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowUp') handleVerticalSwipe('down');
+            if (e.key === 'ArrowDown') handleVerticalSwipe('up');
+            if (e.key === 'ArrowLeft') handleHorizontalSwipe('right');
+            if (e.key === 'ArrowRight') handleHorizontalSwipe('left');
+        });
+
+        // Initialize
+        initDots();
+        updateDisplay();
+    </script>
 </body>
 </html>
