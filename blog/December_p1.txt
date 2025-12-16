@@ -1,3 +1,12 @@
+---
+title: The Fractals Hidden Inside Jurassic Park
+topic: chaos-theory
+related-fractal: dragon-curve
+product: beanie-01
+date: 2025-12-16
+---
+
+
 The Fractals Hidden Inside Jurassic Park
 
 When most people think about Jurassic Park, they think about dinosaurs, chaos, and Jeff Goldblum reminding us that nature doesn’t care about our plans.
