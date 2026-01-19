@@ -4,12 +4,18 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>A-Frame VR Interactive Scene</title>
+  
+  <!-- A-Frame library - core VR framework -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/aframe/1.4.2/aframe.min.js"></script>
+  
   <style>
+    /* Remove default browser margins and prevent scrolling */
     body {
       margin: 0;
       overflow: hidden;
     }
+    
+    /* Info overlay positioned at top-left */
     #info {
       position: absolute;
       top: 10px;
@@ -21,8 +27,10 @@
       padding: 10px;
       border-radius: 5px;
       z-index: 1000;
-      pointer-events: none;
+      pointer-events: none; /* Allows clicking through the overlay */
     }
+    
+    /* Loading message centered on screen */
     #loading {
       position: absolute;
       top: 50%;
@@ -36,60 +44,92 @@
   </style>
 </head>
 <body>
+  <!-- Loading indicator - shown until scene is ready -->
   <div id="loading">Loading VR Scene...</div>
   
+  <!-- Info panel - hidden initially, shown when scene loads -->
   <div id="info" style="display: none;">
     Click on objects to spin them!<br>
     Drag to look around (Desktop) | VR button for headsets
   </div>
 
+  <!-- A-Frame Scene - the container for all 3D content -->
   <a-scene>
-    <!-- Sky -->
-    <a-sky color="#87CEEB"></a-sky>
     
-    <!-- Ground plane -->
+    <!-- SKY: 360-degree panoramic background image -->
+    <!-- The 'src' attribute loads an image that wraps around the entire scene -->
+    <a-sky src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/sechelt.jpg"></a-sky>
+    
+    <!-- GROUND: Large flat surface acting as the floor -->
+    <!-- position: x=0, y=0, z=0 (center of world) -->
+    <!-- rotation: -90 degrees on X axis makes it horizontal -->
+    <!-- repeat: tiles the texture 4x4 times for better detail -->
     <a-plane 
       position="0 0 0" 
       rotation="-90 0 0" 
       width="20" 
       height="20" 
-      color="#7BC8A4">
+      src="https://cdn.aframe.io/a-painter/images/floor.jpg"
+      repeat="4 4">
     </a-plane>
 
-    <!-- Lighting -->
+    <!-- LIGHTING: Illuminates the scene -->
+    <!-- Ambient light: soft overall light with no direction -->
     <a-light type="ambient" color="#BBB"></a-light>
+    
+    <!-- Directional light: like sunlight, comes from a specific direction -->
+    <!-- intensity: brightness level (0-1 range typically) -->
     <a-light type="directional" color="#FFF" intensity="0.6" position="2 4 3"></a-light>
 
-    <!-- Box -->
+    <!-- INTERACTIVE OBJECTS -->
+    
+    <!-- BOX (Cube shape) -->
+    <!-- id: unique identifier for JavaScript access -->
+    <!-- class="clickable": groups objects for event listeners -->
+    <!-- position: -2 units left, 1.5 units up, -3 units forward -->
+    <!-- rotation: 45 degrees around Y axis -->
+    <!-- src: applies brick texture image -->
     <a-box 
       id="box"
       class="clickable"
       position="-2 1.5 -3" 
       rotation="0 45 0" 
-      color="#FF6B6B">
+      src="https://cdn.aframe.io/a-painter/images/brick.jpg">
     </a-box>
-
-    <!-- Sphere -->
+    
+    <!-- SPHERE (Ball shape) -->
+    <!-- position: center horizontally (0), 1.5 up, -3 forward -->
+    <!-- radius: size of the sphere (0.7 units) -->
+    <!-- src: applies colorful pattern texture -->
     <a-sphere 
       id="sphere"
       class="clickable"
       position="0 1.5 -3" 
       radius="0.7"
-      color="#4ECDC4">
+      src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-cubes.jpg">
     </a-sphere>
-
-    <!-- Cylinder -->
+    
+    <!-- CYLINDER (Tube shape) -->
+    <!-- position: 2 units right, 1.5 up, -3 forward -->
+    <!-- radius: width of the cylinder (0.5 units) -->
+    <!-- height: vertical size (1.5 units) -->
+    <!-- src: applies wood texture -->
     <a-cylinder 
       id="cylinder"
       class="clickable"
       position="2 1.5 -3" 
       radius="0.5" 
       height="1.5"
-      color="#FFE66D">
+      src="https://cdn.aframe.io/a-painter/images/wood.jpg">
     </a-cylinder>
 
-    <!-- Camera with cursor -->
+    <!-- CAMERA: The viewer's perspective -->
+    <!-- On desktop: controlled by mouse drag -->
+    <!-- In VR: controlled by headset orientation -->
     <a-camera>
+      <!-- CURSOR: The interaction point (like a mouse pointer in 3D) -->
+      <!-- White circular cursor that detects what you're looking at -->
+      <!-- fuse="false": click required, not gaze-based interaction -->
       <a-cursor
         id="cursor"
         color="#FFFFFF"
@@ -97,34 +137,57 @@
         fuse="false">
       </a-cursor>
     </a-camera>
+    
   </a-scene>
 
   <script>
-    // Hide loading message when scene is ready
+    // ========================================
+    // INITIALIZATION AND SCENE SETUP
+    // ========================================
+    
+    // Get reference to the A-Frame scene element
     const scene = document.querySelector('a-scene');
     
+    // Check if scene has already loaded
     if (scene.hasLoaded) {
-      init();
+      init(); // Scene ready, run initialization immediately
     } else {
+      // Scene still loading, wait for 'loaded' event
       scene.addEventListener('loaded', init);
     }
     
+    // ========================================
+    // MAIN INITIALIZATION FUNCTION
+    // ========================================
     function init() {
+      // Hide loading message and show instructions
       document.getElementById('loading').style.display = 'none';
       document.getElementById('info').style.display = 'block';
       
+      // Get all elements with class "clickable" (our 3 shapes)
       const clickables = document.querySelectorAll('.clickable');
       
+      // ========================================
+      // ADD EVENT LISTENERS TO EACH OBJECT
+      // ========================================
       clickables.forEach(function(element) {
+        
+        // CLICK EVENT: Spin the object 360 degrees
         element.addEventListener('click', function(evt) {
-          const objName = this.id;
-          console.log('Clicked on: ' + objName);
+          const objName = this.id; // Get object's ID (box, sphere, or cylinder)
+          console.log('Clicked on: ' + objName); // Log to browser console for debugging
           
-          // Get current rotation
+          // Get the object's current rotation values
           const currentRotation = this.getAttribute('rotation');
+          
+          // Calculate new Y rotation (current + 360 degrees for full spin)
           const newY = parseFloat(currentRotation.y) + 360;
           
-          // Add 360-degree spin animation
+          // Apply animation to rotate the object
+          // property: what to animate (rotation in this case)
+          // to: target rotation values (x, y, z)
+          // dur: duration in milliseconds (1000ms = 1 second)
+          // easing: animation curve for smooth motion
           this.setAttribute('animation', {
             property: 'rotation',
             to: currentRotation.x + ' ' + newY + ' ' + currentRotation.z,
@@ -133,12 +196,15 @@
           });
         });
         
-        // Hover effects
+        // HOVER EFFECT: Scale up when cursor enters the object
         element.addEventListener('mouseenter', function() {
+          // Increase size by 10% on all axes
           this.setAttribute('scale', '1.1 1.1 1.1');
         });
         
+        // HOVER EFFECT: Scale back to normal when cursor leaves
         element.addEventListener('mouseleave', function() {
+          // Return to original size
           this.setAttribute('scale', '1 1 1');
         });
       });
