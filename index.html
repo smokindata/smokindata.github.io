@@ -68,12 +68,12 @@
     <a-plane
       src="stonefloor.png.png"
       crossorigin="anonymous"
-      material="shader: flat;"
+      material="roughness: 0.8; metalness: 0.2"
       position="0 0 0" 
       rotation="-90 0 0" 
       width="20" 
       height="20" 
-      repeat="4 4">
+      repeat="10 10">
     </a-plane>
 
     <!-- LIGHTING: Illuminates the scene -->
@@ -123,7 +123,7 @@
       position="2 1.5 -3" 
       radius="0.5" 
       height="1.5"
-      src="https://cdn.aframe.io/a-painter/images/wood.jpg">
+      color="#FF6347">
     </a-cylinder>
 
     <!-- CAMERA: The viewer's perspective -->
